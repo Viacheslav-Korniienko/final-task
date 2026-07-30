@@ -12,7 +12,7 @@ describe('Login form validation', () => {
 
         await LoginPage.submit();
 
-        await expect(LoginPage.errorMessage).toBeExisting();
+        await LoginPage.waitForErrorMessage();
         await expect(LoginPage.errorMessage)
             .toHaveText('Epic sadface: Username is required');
     });
@@ -27,7 +27,8 @@ describe('Login form validation', () => {
 
         await LoginPage.submit();
 
-        await expect(LoginPage.errorMessage).toBeExisting();
+        await LoginPage.waitForErrorMessage();
+
         await expect(LoginPage.errorMessage)
             .toHaveText('Epic sadface: Password is required');
     });

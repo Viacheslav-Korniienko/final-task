@@ -48,3 +48,21 @@ The project uses the WebdriverIO spec reporter.
 The results are displayed automatically in the terminal after running: npm run wdio
 
 A successful execution displays the passed test scenarios for both Chrome and Firefox.
+
+#### Logging
+
+The project uses `@wdio/logger` to log important test actions during execution.
+
+The action logs include:
+
+- opening pages;
+- entering a username;
+- clicking buttons;
+- adding a product to the cart;
+- opening the Burger Menu;
+- resetting the application state;
+- logging out.
+
+Custom logs are displayed in the terminal with the `test-actions` label.
+
+Password values are not included in custom action logs.

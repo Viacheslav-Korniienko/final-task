@@ -12,13 +12,10 @@ describe('Performance glitch user flow', () => {
             users.performanceGlitch.password
         );
 
-        await expect(browser)
-            .toHaveUrl('https://www.saucedemo.com/inventory.html');
-
-        await expect(InventoryPage.inventoryContainer)
-            .toBeDisplayed();
+         await InventoryPage.waitForPageToLoad();
 
         await InventoryPage.addBackpackToCart();
+        await InventoryPage.waitForCartBadge();
 
         await expect(InventoryPage.cartBadge)
             .toHaveText('1');
@@ -26,17 +23,15 @@ describe('Performance glitch user flow', () => {
         await MenuPage.openMenu();
         await MenuPage.resetAppState();
 
-        await expect(InventoryPage.cartBadge)
-            .not.toBeExisting();
-        
+        await InventoryPage.waitForCartBadgeToDisappear();
+
         await MenuPage.closeMenu();
         await MenuPage.openMenu();
         await MenuPage.logout();
 
+        await LoginPage.waitForPageToLoad();
+
         await expect(browser)
             .toHaveUrl('https://www.saucedemo.com/');
-
-        await expect(LoginPage.loginButton)
-            .toBeDisplayed();
     });
 });

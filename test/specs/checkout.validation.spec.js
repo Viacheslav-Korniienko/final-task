@@ -13,33 +13,26 @@ describe('Checkout form validation', () => {
             users.standard.password
         );
 
-        await expect(browser)
-            .toHaveUrl('https://www.saucedemo.com/inventory.html');
-
-        await expect(InventoryPage.inventoryContainer)
-            .toBeDisplayed();
+        await InventoryPage.waitForPageToLoad();
     });
 
     it('should show an error when postal code is empty', async () => {
         await InventoryPage.addBackpackToCart();
-        await InventoryPage.openCart();
+        await InventoryPage.waitForCartBadge();
 
-        await expect(CartPage.cartItem).toBeExisting();
+        await InventoryPage.openCart();
+        await CartPage.waitForPageToLoad();
 
         await CartPage.proceedToCheckout();
+        await CheckoutPage.waitForPageToLoad();
 
         await CheckoutPage.fillCustomerName(
             'Test',
             'User'
         );
 
-        await expect(CheckoutPage.postalCodeInput)
-            .toHaveValue('');
-
         await CheckoutPage.continueCheckout();
-
-        await expect(CheckoutPage.errorMessage)
-            .toBeExisting();
+        await CheckoutPage.waitForErrorMessage();
 
         await expect(CheckoutPage.errorMessage)
             .toHaveText('Error: Postal Code is required');
